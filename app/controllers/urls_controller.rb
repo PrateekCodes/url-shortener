@@ -20,7 +20,7 @@ class UrlsController < ApplicationController
     @url = Url.find_by_short_url(params[:short_url])
 
     if @url
-      render status: :ok, json: { success: true, url: @url.original_url }
+      render status: :ok, json: { success: true, original_url: @url.original_url }
     else
       render status: :not_found, json: { success: false, error: "Not found" }
     end
