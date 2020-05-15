@@ -8,7 +8,7 @@ namespace :app do
     session.post root_url, params: { "url": { "original_url": ENV["URL"] } } 
     res = JSON.parse(session.response.body)
     if res["success"]
-      puts "The shortened url of #{ENV["URL"]} is #{root_url+res["short_url"]}."
+      puts "The shortened url of #{ENV["URL"]} is https://short.is/#{+res["short_url"]}."
     else
       puts res["errors"]
     end
@@ -22,7 +22,7 @@ namespace :app do
     if res["success"]
       puts "The original url of short url #{ENV["SHORTURL"]} is #{res["original_url"]}"
     else
-      puts "No original url was found for the  short url #{ENV["SHORTURL"]}"
+      puts "No original url was found for the short url #{ENV["SHORTURL"]}"
     end
   end
 
