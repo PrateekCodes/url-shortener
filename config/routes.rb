@@ -1,4 +1,3 @@
 Rails.application.routes.draw do
-  post '/' => 'urls#create'
-  get '/:short_url' => 'urls#show'
+  resources :urls, only: [ :create, :show], param: :short
 end

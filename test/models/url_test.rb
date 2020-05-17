@@ -9,38 +9,38 @@ class UrlTest < ActiveSupport::TestCase
   end
 
   test "original url should be present" do
-    urls(:one).original_url = " " * 5
+    urls(:one).original = " " * 5
     assert_not urls(:one).valid?
-    assert_equal "Original url can't be blank", urls(:one).errors.full_messages[0]
+    assert_equal "Original can't be blank", urls(:one).errors.full_messages[0]
   end
 
   test "original url should be vaild url" do
-    urls(:one).original_url = "altcampus.com"
+    urls(:one).original = "altcampus.com"
     assert_not urls(:one).valid?
-    assert_equal ["Please enter valid URL"], urls(:one).errors[:original_url]
+    assert_equal ["Please enter valid URL"], urls(:one).errors[:original]
   end
 
   test "original url should be unique" do
-    @url = Url.new(original_url: urls(:one).original_url, short_url: "AaBbCcDd")
+    @url = Url.new(original: urls(:one).original, short: "AaBbCcDd")
     assert_not @url.valid?
-    assert_equal ["Original url has already been taken"], @url.errors.full_messages
+    assert_equal ["Original has already been taken"], @url.errors.full_messages
   end
 
   test "short url should be present" do
-    urls(:one).short_url = " " * 8
+    urls(:one).short = " " * 8
     assert_not urls(:one).valid?
-    assert_equal ["Short url can't be blank"], urls(:one).errors.full_messages
+    assert_equal ["Short can't be blank"], urls(:one).errors.full_messages
   end
 
   test "short Url should have a length of 8" do
-    urls(:one).short_url = "AbCd"
+    urls(:one).short = "AbCd"
     assert_not urls(:one).valid?
-    assert_equal ["Short url is the wrong length (should be 8 characters)"], urls(:one).errors.full_messages
+    assert_equal ["Short is the wrong length (should be 8 characters)"], urls(:one).errors.full_messages
   end
 
   test "short url should be unique" do
-    @url = Url.new(original_url: "https://bigbinary.com", short_url: urls(:one).short_url)
+    @url = Url.new(original: "https://bigbinary.com", short: urls(:one).short)
     assert_not @url.valid?
-    assert_equal ["Short url has already been taken"], @url.errors.full_messages
+    assert_equal ["Short has already been taken"], @url.errors.full_messages
   end
 end

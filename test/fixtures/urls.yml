@@ -1,5 +1,5 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  original_url: "https://twitter.com/prateek_codes"
-  short_url: "pxcode21"
+  original: "https://twitter.com/prateek_codes"
+  short: "pxcode21"
