@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_17_085439) do
+ActiveRecord::Schema.define(version: 2020_05_18_133722) do
 
   create_table "urls", force: :cascade do |t|
     t.string "original", null: false
     t.string "short", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "pinned", default: false, null: false
     t.index ["original", "short"], name: "index_urls_on_original_and_short", unique: true
   end
 

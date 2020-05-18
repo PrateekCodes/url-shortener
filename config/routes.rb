@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
   root 'urls#index'
-  resources :urls, only: [ :create, :show], param: :short
+  resources :urls, only: [ :create, :show, :update], param: :short
 end
