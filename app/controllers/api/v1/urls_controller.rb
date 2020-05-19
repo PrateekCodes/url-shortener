@@ -24,7 +24,6 @@ class Api::V1::UrlsController < ApplicationController
 
   def show
     @url = Url.find_by_short(params[:short])
-
     if @url
       render status: :ok, json: { original_url: @url.original }
     else
