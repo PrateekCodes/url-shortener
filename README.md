@@ -63,3 +63,33 @@ If the SHORTURL is not present in the database then print error message like sho
 ```msg
 No original url was found for the  short url https://short.is/poliwe71
 ```
+
+### Implementation
+
+- Added `pinned` column in `urls` table with boolean value type and default value is `false`.
+- On `/api/v1/urls` endpoint `index` action called and sent:-
+  - List of all `urls` sent in Json format.
+  - List order created in descending order based on value `updated_at`
+  - All pinned item with value `true` moved to top.
+
+### EndPoints
+
+```YAML
+index:
+  method: "GET"
+  path: "/api/v1/urls"
+
+create:
+  method: "POST"
+  path: "/api/v1/urls"
+  params: url: { original: "https://twitter.com" }
+
+show:
+  method: "GET"
+  path: "/api/v1/urls/:short"
+
+update:
+  method: "PUT"
+  path: "api/v1/urls/:short"
+  params: url: { pinned: true }
+```
