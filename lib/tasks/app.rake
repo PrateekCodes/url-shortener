@@ -5,7 +5,7 @@ namespace :app do
   
   desc "encode original url"
   task encode: :environment do
-    url_path = urls_url(host: "https://localhost:3000")
+    url_path = api_v1_urls_url(host: "https://localhost:3000")
     session.post url_path, params: { "url": { "original": ENV["URL"] } } 
     res = JSON.parse(session.response.body)
     status_code = session.response.status
@@ -18,7 +18,7 @@ namespace :app do
 
   desc "decode short url"
   task decode: :environment do
-    url_path = urls_url(host: "https://localhost:3000")
+    url_path = api_v1_urls_url(host: "https://localhost:3000")
     short_url = ENV["SHORTURL"].last(8)
     session.get "#{url_path+"/"+short_url}"
     res = JSON.parse(session.response.body)

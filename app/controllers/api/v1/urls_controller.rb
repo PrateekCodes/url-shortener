@@ -1,7 +1,9 @@
-class UrlsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:create]
+class Api::V1::UrlsController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:create,:update]
 
-  def index  
+  def index
+    @urls = Url.order(pinned: :desc, updated_at: :desc) 
+    render status: :ok, json: { urls: @urls }
   end
 
   def create
@@ -22,7 +24,6 @@ class UrlsController < ApplicationController
 
   def show
     @url = Url.find_by_short(params[:short])
-
     if @url
       render status: :ok, json: { original_url: @url.original }
     else
@@ -30,8 +31,16 @@ class UrlsController < ApplicationController
     end
   end
 
+  def update
+    @url = Url.find_by_short(params[:short])
+    puts @url.original
+    if @url.update(pinned: url_params[:pinned])
+      render status: :ok, json: { updated_url: @url }
+    end
+  end
+
   private
     def url_params
-      params.require(:url).permit(:original)
+      params.require(:url).permit(:original, :pinned)
     end
 end
