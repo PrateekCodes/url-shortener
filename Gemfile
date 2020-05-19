@@ -6,9 +6,9 @@ ruby '2.6.3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3'
 # Use sqlite3 as the database for Active Record in development and test environment
-gem 'sqlite3', '~> 1.4', :group => {:development, :test}
+gem 'sqlite3', '~> 1.4', :group => [:development, :test]
 # Use sqlite3 as the database for Active Record in production
-gem 'pg', :group => {:production}
+gem 'pg', :group => [:production]
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
