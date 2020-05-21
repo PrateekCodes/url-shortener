@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :urls, only: [ :index, :create, :show, :update], param: :short
-      resources :categories, only: [ :index, :create, :show, :update], param: :title
+      resources :categories, only: [ :index, :create, :update, :destroy], param: :title
     end
   end
   root 'static#index'
