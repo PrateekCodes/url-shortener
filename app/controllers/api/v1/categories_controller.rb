@@ -1,5 +1,4 @@
 class Api::V1::CategoriesController < ApplicationController
-
   def index
     @categories = Category.order( created_at: :desc)
     render status: :ok, json: { categories: @categories }
@@ -21,7 +20,7 @@ class Api::V1::CategoriesController < ApplicationController
     if @category.update(category_params)
       render status: :ok, json: { category: @category }
     else
-      render status: :unprocessable_entity, json: { @category.errors.full_messages }
+      render status: :unprocessable_entity, json: { errors: @category.errors.full_messages }
     end
   end
 
@@ -29,9 +28,10 @@ class Api::V1::CategoriesController < ApplicationController
     @category = Category.find_by_title(params[:title])
 
     if @category.destroy
-      render status: :ok
+      render status: :ok, json: { category: @category }
     else
-      render status: :unprocessable_entity, json: { @category.errors.full_messages }
+      render status: :unprocessable_entity, json: { errors: @category.errors.full_messages }
+    end
   end
 
   private
