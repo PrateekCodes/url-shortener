@@ -1,28 +1,52 @@
 import React, { useState, useRef } from "react";
-import axios from "axios";
+import API from "../../utils/API";
+import Categories from "../Categories";
 
-export default ({ url: { original, short, pinned }, updateUrls, id }) => {
-  // const [pin, setPin] = useState(pinned);
-  const pinRef = useRef();
-  pinRef.current = pinned;
-
+export default ({
+  url: { original, short, pinned, category_id },
+  urls,
+  setUrls,
+  categories,
+}) => {
   const updatePin = async () => {
-    await updateUrls(id);
-    const res = await axios.put(
-      `/api/v1/urls/${short}`,
-      { url: { pinned: pinRef.current } },
-      {
-        headers: {
-          "X-CSRF-TOKEN": document.querySelector('[name="csrf-token"]').content,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const togglePinned = () => {
+      return urls.map((urlData) =>
+        urlData.short === short
+          ? {
+              ...urlData,
+              updated_at: new Date(Date.now()).toISOString(),
+              pinned: !urlData.pinned,
+            }
+          : urlData
+      );
+    };
+    setUrls(togglePinned());
+
+    const res = await API("urls/" + short, "put", {
+      url: { pinned: !pinned },
+    });
     if (res.status !== 200) {
-      updateUrls(id);
+      setUrls(togglePinned());
     }
   };
 
+  const updateCategory = async (e) => {
+    const updateCategoryId = (toggle_id) =>
+      urls.map((urlData) =>
+        urlData.short === short
+          ? { ...urlData, category_id: toggle_id }
+          : urlData
+      );
+    setUrls(updateCategoryId(Number(e.target.value)));
+    const res = await API("urls/" + short, "put", {
+      url: { category_id: Number(e.target.value) },
+    });
+    if (res.status !== 200) {
+      updateCategoryId(null);
+    }
+  };
+
+  const category = categories[category_id];
   return (
     <tr className="text-center text-gray-700">
       <td className="border px-4 py-2">
@@ -36,6 +60,32 @@ export default ({ url: { original, short, pinned }, updateUrls, id }) => {
           target="_blank"
           className="hover:text-yellow-600"
         >{`https://${window.location.hostname}/${short}`}</a>
+      </td>
+      <td className="border px-4 py-2">
+        <div className="flex items-center bg-gray-400 mx-auto py-1 px-3 rounded-full justify-center">
+          {category && (
+            <span
+              style={{ backgroundColor: category.color }}
+              className="h-4 w-4 rounded-full mr-3"
+            />
+          )}
+          <select
+            name="category_id"
+            value={category ? category.id : "DEFAULT"}
+            onChange={updateCategory}
+            className="appearance-none bg-gray-400 py-2 px-1 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          >
+            <option value="DEFAULT" disabled="disabled">
+              Choose category
+            </option>
+            {categories.length !== 0 &&
+              Object.values(categories).map(({ title, id }) => (
+                <option key={id} value={id}>
+                  {title}
+                </option>
+              ))}
+          </select>
+        </div>
       </td>
       <td className="border px-4 py-2" onClick={updatePin}>
         {pinned ? (
