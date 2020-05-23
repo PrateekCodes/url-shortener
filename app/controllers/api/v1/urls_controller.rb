@@ -3,9 +3,10 @@ class Api::V1::UrlsController < ApplicationController
 
   def index
     @urls = Url.order(pinned: :desc, updated_at: :desc)
+    
     categories = {}
-    @urls.each do |url|
-      categories[url.id] = url.category.as_json if url.category
+    Category.all.each do |category|
+      categories[category.id] = category
     end
     render status: :ok, json: { urls: @urls, categories: categories }
   end
