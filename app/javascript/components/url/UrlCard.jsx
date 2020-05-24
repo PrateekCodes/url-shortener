@@ -87,7 +87,11 @@ export default ({
           </select>
         </div>
       </td>
-      <td className="border px-4 py-2" onClick={updatePin}>
+      <td
+        title={!pinned ? "Pinned" : "UnPinned"}
+        className="border px-4 py-2"
+        onClick={updatePin}
+      >
         {pinned ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
