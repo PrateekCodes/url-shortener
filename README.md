@@ -2,6 +2,8 @@
 
 This is a url shortener API, build with Ruby On Rails 6.
 
+> App is deployed [here](https://url-shortener-prateekcodes.herokuapp.com/)
+
 ## How to use `URL-Shortner`
 
 1. Clone the repository by running the following command
@@ -68,11 +70,23 @@ No original url was found for the  short url https://short.is/poliwe71
 
 - Added `pinned` column in `urls` table with boolean value type and default value is `false`.
 - On `/api/v1/urls` endpoint `index` action called and sent:-
+
   - List of all `urls` sent in Json format.
   - List order created in descending order based on value `updated_at`
   - All pinned item with value `true` moved to top.
 
+- Added CRUD for categories over REST api of categories.
+
+- Url's can be assigned different categories.
+
+- On `/api/v1/urls` endpoint for categories:-
+
+  - list of urls with default alloted categories
+  - categories can be alloted again.
+
 ### EndPoints
+
+#### Url EndPoints
 
 ```YAML
 index:
@@ -92,4 +106,26 @@ update:
   method: "PUT"
   path: "api/v1/urls/:short"
   params: url: { pinned: true }
+```
+
+#### Category EndPoints
+
+```YAML
+index:
+  method: "GET"
+  path: "/api/v1/categories"
+
+create:
+  method: "POST"
+  path: "/api/v1/categories"
+  params: category: { title: "blog", color: "#ffffff" }
+
+destroy:
+  method: "DELETE"
+  path: "/api/v1/categories/:title"
+
+update:
+  method: "PUT"
+  path: "api/v1/categories/:title"
+  params: category: { title: "blog", color: "#ffffff" }
 ```
