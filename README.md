@@ -30,12 +30,18 @@ $ bundle install
 $ rails db:create db:migrate db:setup
 ```
 
+5. Create .env file in root
+
+```sh
+$ echo ROOT_URL=http://localhost:3000/ >> .env
+```
+
 6. Now we can execute following commands.
 
 ```sh
 $ URL=https://bigbinary.com/jobs bundle exec rake app:encode
 
-$ SHORTURL=https://short.is/tkLo2367 bundle exec rake app:decode
+$ SHORTURL=https://localhost:3000/tkLo2367 bundle exec rake app:decode
 ```
 
 ## How rake tasks works

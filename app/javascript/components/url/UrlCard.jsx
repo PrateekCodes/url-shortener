@@ -3,7 +3,7 @@ import API from "../../utils/API";
 import Categories from "../Categories";
 
 export default ({
-  url: { original, short, pinned, category_id },
+  url: { id, original, short, pinned, category_id },
   urls,
   setUrls,
   categories,
@@ -22,7 +22,7 @@ export default ({
     };
     setUrls(togglePinned());
 
-    const res = await API("urls/" + short, "put", {
+    const res = await API("urls/" + id, "put", {
       url: { pinned: !pinned },
     });
     if (res.status !== 200) {
@@ -38,7 +38,7 @@ export default ({
           : urlData
       );
     setUrls(updateCategoryId(Number(e.target.value)));
-    const res = await API("urls/" + short, "put", {
+    const res = await API("urls/" + id, "put", {
       url: { category_id: Number(e.target.value) },
     });
     if (res.status !== 200) {

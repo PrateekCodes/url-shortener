@@ -1,4 +1,5 @@
 class Api::V1::CategoriesController < ApplicationController
+
   def index
     @categories = Category.order( created_at: :desc)
     render status: :ok, json: { categories: @categories }
@@ -15,7 +16,7 @@ class Api::V1::CategoriesController < ApplicationController
   end
 
   def update
-    @category = Category.find_by_title(params[:title])
+    @category = Category.find(params[:id])
 
     if @category.update(category_params)
       render status: :ok, json: { category: @category }
@@ -25,7 +26,7 @@ class Api::V1::CategoriesController < ApplicationController
   end
 
   def destroy
-    @category = Category.find_by_title(params[:title])
+    @category = Category.find(params[:id])
 
     if @category.destroy
       render status: :ok, json: { category: @category }

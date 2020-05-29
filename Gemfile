@@ -7,8 +7,10 @@ ruby '2.6.3'
 gem 'rails', '~> 6.0.3'
 # Use sqlite3 as the database for Active Record in development and test environment
 gem 'sqlite3', '~> 1.4', :group => [:development, :test]
-# Use sqlite3 as the database for Active Record in production
+# Use pg as the database for Active Record in production
 gem 'pg', :group => [:production]
+# Use env as the app server for host url
+gem 'dotenv-rails', groups: [:development, :test]
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets

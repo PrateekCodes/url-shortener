@@ -37,8 +37,11 @@ export default ({ categories, setCategories, setAlert }) => {
         setTimeout(() => setAlert(""), 4000);
       }
     } else {
-      if (color.length !== 7) setAlert("Hex color length is not equal to 7");
-      else setAlert("Title or Color missing.");
+      if (color.length !== 7) {
+        setAlert("Hex color length is not equal to 7");
+      } else {
+        setAlert("Title or Color is missing.");
+      }
       setTimeout(() => setAlert(""), 4000);
     }
   };

@@ -8,7 +8,7 @@ export default ({ category, categories, setCategories, setAlert }) => {
 
   const onDelete = async () => {
     try {
-      await API(`categories/${category.title}`, "delete");
+      await API(`categories/${category.id}`, "delete");
       setCategories(categories.filter((data) => data.id !== category.id));
     } catch (error) {
       console.dir(error);
@@ -18,7 +18,7 @@ export default ({ category, categories, setCategories, setAlert }) => {
   const onUpdate = async () => {
     if (title && color && color.length === 7) {
       try {
-        await API(`categories/${category.title}`, "put", {
+        await API(`categories/${category.id}`, "put", {
           category: { title, color },
         });
         setCategories(
