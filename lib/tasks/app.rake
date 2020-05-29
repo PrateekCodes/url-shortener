@@ -10,7 +10,7 @@ namespace :app do
     res = JSON.parse(session.response.body)
     status_code = session.response.status
     if status_code == 200 || status_code == 201
-      puts "The shortened url of #{ENV["URL"]} is https://short.is/#{+res["short_url"]}."
+      puts "The shortened url of #{ENV["URL"]} is #{ENV['ROOT_URL']+res["short_url"]}."
     else
       puts res["errors"]
     end
@@ -24,7 +24,7 @@ namespace :app do
     res = JSON.parse(session.response.body)
     status_code = session.response.status
     if status_code == 200
-      puts "The original url of short url #{ENV["SHORTURL"]} is #{res["original_url"]}"
+      puts "The original url of short url #{ENV["SHORTURL"]} is #{+res["original_url"]}"
     else
       puts "No original url was found for the short url #{ENV["SHORTURL"]}"
     end
