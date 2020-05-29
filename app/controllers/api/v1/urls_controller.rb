@@ -2,7 +2,7 @@ class Api::V1::UrlsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
 
   def index
-    @urls = Url.order(pinned: :desc, updated_at: :desc)
+    @urls = Url.order(pinned: :desc, created_at: :desc)
     
     categories = {}
     Category.all.each do |category|
@@ -38,7 +38,7 @@ class Api::V1::UrlsController < ApplicationController
   end
 
   def update
-    @url = Url.find_by_short(params[:short])
+    @url = Url.find(params[:id])
 
     if @url.update(url_params)
       render status: :ok, json: { updated_url: @url }
