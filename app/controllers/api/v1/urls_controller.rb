@@ -31,6 +31,7 @@ class Api::V1::UrlsController < ApplicationController
     @url = Url.find_by_short(params[:short])
 
     if @url
+      url_visit(@url.id)
       render status: :ok, json: { original_url: @url.original }
     else
       render status: :not_found, json: { error: "Not found" }
@@ -50,5 +51,9 @@ class Api::V1::UrlsController < ApplicationController
   private
     def url_params
       params.require(:url).permit(:original, :pinned, :category_id)
+    end
+    
+    def url_visit(id)
+      Visit.create(url_id: id)
     end
 end
