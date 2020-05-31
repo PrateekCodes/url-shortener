@@ -6,7 +6,7 @@ urls = [
   "https://dashboard.heroku.com/",
   "https://learnrubyonrails.bigbinary.com",
   "https://github.com/PrateekCodes/url-shortener",
-  "https://linkedin.com/in/prateekcodes"
+  "https://linkedin.com/in/prateekcodes",
 ]
 
 Url.destroy_all
