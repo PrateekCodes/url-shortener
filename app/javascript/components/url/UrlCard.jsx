@@ -1,12 +1,12 @@
 import React, { useState, useRef } from "react";
 import API from "../../utils/API";
-import Categories from "../Categories";
 
 export default ({
   url: { id, original, short, pinned, category_id },
   urls,
   setUrls,
   categories,
+  visit,
 }) => {
   const updatePin = async () => {
     const togglePinned = () => {
@@ -46,6 +46,14 @@ export default ({
     }
   };
 
+  const handleClick = async (e) => {
+    e.preventDefault();
+    const res = await API(`urls/${short}`, "get");
+    if (res.status === 200) {
+      window.open(res.data.original_url, "_blank");
+    }
+  };
+
   const category = categories[category_id];
   return (
     <tr className="text-center text-gray-700">
@@ -58,6 +66,7 @@ export default ({
         <a
           href={`https://${window.location.hostname}/${short}`}
           target="_blank"
+          onClick={handleClick}
           className="hover:text-yellow-600"
         >{`https://${window.location.hostname}/${short}`}</a>
       </td>
@@ -87,6 +96,7 @@ export default ({
           </select>
         </div>
       </td>
+      <td className="border px-4 py-2">{visit || 0}</td>
       <td
         title={!pinned ? "Pinned" : "UnPinned"}
         className="border px-4 py-2"

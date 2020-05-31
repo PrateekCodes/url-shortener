@@ -7,6 +7,7 @@ import UrlCard from "./UrlCard";
 
 export default () => {
   const [urls, setUrls] = useState([]);
+  const [visits, setVisits] = useState({});
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -15,6 +16,7 @@ export default () => {
       if (res.status === 200) {
         setUrls(res.data.urls);
         setCategories(res.data.categories);
+        setVisits(res.data.visits);
       }
     })();
   }, []);
@@ -26,6 +28,7 @@ export default () => {
           <th className="px-4 py-2">Original</th>
           <th className="px-4 py-2">Short</th>
           <th className="px-4 py-2">Category</th>
+          <th className="px-4 py-2">Count</th>
           <th className="px-4 py-2">Pin</th>
         </tr>
       </thead>
@@ -37,6 +40,7 @@ export default () => {
             urls={urls}
             setUrls={setUrls}
             categories={categories}
+            visit={visits[url.id]}
           />
         ))}
       </tbody>
