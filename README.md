@@ -72,6 +72,12 @@ If the SHORTURL is not present in the database then print error message like sho
 No original url was found for the  short url https://short.is/poliwe71
 ```
 
+To deletes all records and populates sample data
+
+```sh
+rake setup_sample_data
+```
+
 ### Implementation
 
 - Added `pinned` column in `urls` table with boolean value type and default value is `false`.
@@ -134,4 +140,12 @@ update:
   method: "PUT"
   path: "api/v1/categories/:title"
   params: category: { title: "blog", color: "#ffffff" }
+```
+
+#### Report EndPoints
+
+```YAML
+index:
+  method: "GET"
+  path: "/api/v1/reports"
 ```
