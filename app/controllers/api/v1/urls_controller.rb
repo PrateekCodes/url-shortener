@@ -19,7 +19,7 @@ class Api::V1::UrlsController < ApplicationController
       render status: :ok, json: { short_url: @url.short }
     else
       @url = Url.new(url_params)
-      @url.generate_short_url
+      
       if @url.save
         render status: :created, json: { short_url: @url.short }
       else

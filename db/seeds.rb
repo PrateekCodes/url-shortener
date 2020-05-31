@@ -13,6 +13,5 @@ Url.destroy_all
 
 urls.each do |url|
   @url = Url.new(original: url)
-  @url.generate_short_url
   @url.save
 end
