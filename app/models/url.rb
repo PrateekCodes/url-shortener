@@ -1,4 +1,5 @@
 class Url < ApplicationRecord
+  has_many :visits, dependent: :destroy
   belongs_to :category, optional: true
   validates :original, presence: true, uniqueness: true, format: { with: URI::regexp(%w[http https]), message: "Please enter valid URL"}
   validates :short, presence: true, uniqueness: true, length: { is: 8 }
