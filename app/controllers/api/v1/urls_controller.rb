@@ -3,12 +3,13 @@ class Api::V1::UrlsController < ApplicationController
 
   def index
     @urls = Url.order(pinned: :desc, created_at: :desc)
-    
+    @visits = Visit.all.group_by { |t| t.url_id}
+    visits = @visits.map{ |key, value| [key, value.length] }.to_h
     categories = {}
     Category.all.each do |category|
       categories[category.id] = category
     end
-    render status: :ok, json: { urls: @urls, categories: categories }
+    render status: :ok, json: { urls: @urls, categories: categories, visits: visits }
   end
 
   def create
