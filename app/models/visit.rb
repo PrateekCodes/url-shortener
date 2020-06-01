@@ -1,5 +1,5 @@
 class Visit < ApplicationRecord
-  before_create :set_visit_time
+  before_validation :set_visit_time, if: Proc.new { |visit| !visit.visited_at? }
   belongs_to :url
   validates :url_id, presence: true
   

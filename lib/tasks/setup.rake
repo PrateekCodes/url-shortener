@@ -47,9 +47,17 @@ task setup_sample_data: [:environment, :not_production] do
     "https://linkedin.com/in/prateekcodes",
   ]
 
+  visit = [
+    2.month.ago,
+    5.month.ago,
+    Time.now
+  ]
+
   urls.each do |url|
-    @url = Url.new(original: url)
-    @url.save
+    @url = Url.create(original: url)
+    for i in 0..rand(3)
+      Visit.create(url_id: @url.id, visited_at: visit[i])
+    end
   end
 
   puts "sample data was added successfully"
